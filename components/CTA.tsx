@@ -6,6 +6,7 @@ import {
   MessageCircle, Mail, Phone, MapPin, Send,
   User, Briefcase, ChevronDown, CheckCircle2, Loader2
 } from "lucide-react";
+import Image from "next/image";
 
 const services = [
   "Full-Stack Development",
@@ -166,10 +167,11 @@ export default function CTA() {
     >
       {/* Parallax bg image */}
       <motion.div className="absolute inset-0 pointer-events-none" style={{ y: bgY }}>
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1400&h=900&fit=crop&auto=format"
           alt=""
-          className="w-full h-full object-cover opacity-[0.06]"
+          fill
+          className="object-cover opacity-[0.06]"
         />
       </motion.div>
 
@@ -302,10 +304,11 @@ export default function CTA() {
               className="rounded-3xl overflow-hidden relative"
               style={{ height: "180px" }}
             >
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=300&fit=crop&auto=format"
                 alt="Our workspace"
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0c1f4a]/80 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-5">

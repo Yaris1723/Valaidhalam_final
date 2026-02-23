@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Code2, Globe, TrendingUp, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
 const services = [
   {
@@ -68,13 +69,18 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
       >
         {/* Image with overlay */}
         <div className="relative overflow-hidden" style={{ height: "200px" }}>
-          <motion.img
-            src={s.img}
-            alt={s.title}
-            className="w-full h-full object-cover"
+          <motion.div
             animate={{ scale: hovered ? 1.07 : 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-          />
+            className="w-full h-full"
+          >
+            <Image
+              src={s.img}
+              alt={s.title}
+              fill
+              className="object-cover"
+            />
+          </motion.div>
           <div className="absolute inset-0" style={{
             background: `linear-gradient(180deg, ${s.accentColor}22 0%, ${s.accentColor}55 100%)`
           }} />

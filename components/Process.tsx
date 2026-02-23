@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Lightbulb, PenTool, Code2, Rocket } from "lucide-react";
+import Image from "next/image";
 
 const steps = [
   {
@@ -147,15 +148,20 @@ export default function Process() {
             <div className="grid grid-cols-1 lg:grid-cols-2">
               {/* Image */}
               <div className="relative overflow-hidden" style={{ minHeight: "280px" }}>
-                <motion.img
+                <motion.div
                   key={steps[activeStep].img}
-                  src={steps[activeStep].img}
-                  alt={steps[activeStep].title}
-                  className="w-full h-full object-cover absolute inset-0"
+                  className="w-full h-full absolute inset-0"
                   initial={{ scale: 1.1, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.6 }}
-                />
+                >
+                  <Image
+                    src={steps[activeStep].img}
+                    alt={steps[activeStep].title}
+                    fill
+                    className="object-cover"
+                  />
+                </motion.div>
                 <div className="absolute inset-0" style={{
                   background: `linear-gradient(135deg, ${steps[activeStep].color}60 0%, transparent 60%)`
                 }} />

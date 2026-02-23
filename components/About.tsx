@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { CheckCircle2, Users, Award, Zap } from "lucide-react";
+import Image from "next/image";
 
 const tags = ["React & Next.js", "Node.js", "UI/UX Design", "Cloud Infra", "Digital Strategy", "Brand Growth"];
 const stats = [
@@ -50,9 +51,11 @@ export default function About() {
                 whileHover={{ scale: 1.02, zIndex: 10 }}
                 transition={{ duration: 0.35 }}
               >
-                <img
+                <Image
                   src={GALLERY[0].src}
                   alt={GALLERY[0].alt}
+                  width={340}
+                  height={220}
                   className="w-full h-52 object-cover"
                   style={{ boxShadow: "0 12px 40px rgba(29,78,216,0.12)" }}
                 />
@@ -65,9 +68,11 @@ export default function About() {
                 whileHover={{ scale: 1.02, zIndex: 10 }}
                 transition={{ duration: 0.35 }}
               >
-                <img
+                <Image
                   src={GALLERY[1].src}
                   alt={GALLERY[1].alt}
+                  width={340}
+                  height={220}
                   className="w-full h-52 object-cover"
                 />
               </motion.div>
@@ -79,9 +84,11 @@ export default function About() {
                 whileHover={{ scale: 1.02, zIndex: 10 }}
                 transition={{ duration: 0.35 }}
               >
-                <img
+                <Image
                   src={GALLERY[3].src}
                   alt={GALLERY[3].alt}
+                  width={340}
+                  height={140}
                   className="w-full h-36 object-cover"
                 />
               </motion.div>
@@ -93,9 +100,11 @@ export default function About() {
                 whileHover={{ scale: 1.02, zIndex: 10 }}
                 transition={{ duration: 0.35 }}
               >
-                <img
+                <Image
                   src={GALLERY[2].src}
                   alt={GALLERY[2].alt}
+                  width={340}
+                  height={220}
                   className="w-full h-44 object-cover"
                 />
               </motion.div>

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowRight, Sparkles, ChevronDown } from "lucide-react";
+import Image from "next/image";
 
 const TECH_LOGOS = ["React", "Next.js", "Node", "TypeScript", "AWS", "Figma", "MongoDB", "Tailwind", "GraphQL", "Docker", "Vercel", "Stripe"];
 
@@ -113,10 +114,12 @@ export default function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2.0, duration: 0.8 }}
       >
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=160&h=100&fit=crop&auto=format"
           alt="Team working"
-          className="w-40 h-24 object-cover"
+          width={160}
+          height={100}
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-blue-900/70 to-transparent flex items-end p-3">
           <span className="text-white text-[11px] font-bold font-display">Our Team →</span>

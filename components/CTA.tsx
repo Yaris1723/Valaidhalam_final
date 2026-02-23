@@ -213,7 +213,7 @@ export default function CTA() {
             className="font-display font-extrabold text-white leading-[1.08] tracking-tight mb-5"
             style={{ fontSize: "clamp(2.4rem, 6vw, 4rem)" }}
           >
-            Let's build something
+            Let&apos;s build something
             <br />
             <span style={{
               background: "linear-gradient(135deg, #93c5fd, #60a5fa, #a5b4fc)",
@@ -223,7 +223,7 @@ export default function CTA() {
             </span>
           </h2>
           <p className="text-blue-200/65 font-jakarta font-light text-lg max-w-lg mx-auto leading-relaxed">
-            Tell us about your project and we'll get back to you within 24 hours.
+            Tell us about your project and we&apos;ll get back to you within 24 hours.
           </p>
         </motion.div>
 
@@ -245,7 +245,7 @@ export default function CTA() {
               <div>
                 <h3 className="font-display font-bold text-white text-xl mb-1.5">Contact Information</h3>
                 <p className="text-blue-300/60 text-sm font-jakarta leading-relaxed">
-                  Reach us directly or fill the form — we're always happy to talk.
+                  Reach us directly or fill the form — we&apos;re always happy to talk.
                 </p>
               </div>
 
@@ -361,7 +361,7 @@ export default function CTA() {
                     </motion.div>
                     <h3 className="font-display font-extrabold text-white text-2xl mb-3">Message Sent! 🎉</h3>
                     <p className="text-blue-200/70 font-jakarta text-sm leading-relaxed max-w-xs mx-auto mb-8">
-                      Thanks for reaching out, <span className="text-white font-semibold">{form.name}</span>! We'll get back to you within 24 hours.
+                      Thanks for reaching out, <span className="text-white font-semibold">{form.name}</span>! We&apos;ll get back to you within 24 hours.
                     </p>
                     <motion.button
                       onClick={() => { setStatus("idle"); setForm({ name: "", email: "", company: "", phone: "", service: "", budget: "", message: "" }); }}

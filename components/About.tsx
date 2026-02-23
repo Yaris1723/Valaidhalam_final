@@ -151,7 +151,7 @@ export default function About() {
               className="font-display font-extrabold text-slate-900 leading-[1.12] tracking-tight mb-6"
               style={{ fontSize: "clamp(2rem, 4vw, 2.9rem)" }}
             >
-              We're the team behind your{" "}
+              We&apos;re the team behind your{" "}
               <span style={{
                 background: "linear-gradient(135deg, #1d4ed8, #06b6d4)",
                 WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text"
@@ -161,7 +161,7 @@ export default function About() {
             </h2>
 
             <p className="text-slate-500 leading-[1.9] mb-4 text-[15px]">
-              Valaidhalam is a Tamil Nadu–based tech services studio that partners with startups, SMEs, and enterprises to build digital products they're proud of. We bring craft and intention to every pixel and every line of code.
+              Valaidhalam is a Tamil Nadu–based tech services studio that partners with startups, SMEs, and enterprises to build digital products they&apos;re proud of. We bring craft and intention to every pixel and every line of code.
             </p>
             <p className="text-slate-500 leading-[1.9] mb-8 text-[15px]">
               Founded on the belief that great software changes lives, our multidisciplinary team blends product thinking, sharp design, and modern engineering to deliver outcomes — not just deliverables.

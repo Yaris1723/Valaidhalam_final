@@ -75,7 +75,7 @@ export default function Process() {
             }}>for clarity</span>
           </h2>
           <p className="text-slate-500 max-w-md mx-auto leading-relaxed text-[15px]">
-            Every great product starts with a proven foundation. Here's how we turn your idea into reality.
+            Every great product starts with a proven foundation. Here&apos;s how we turn your idea into reality.
           </p>
         </motion.div>
 

@@ -88,7 +88,7 @@ export default function Testimonials() {
                 </div>
 
                 <p className="font-jakarta text-slate-700 text-lg md:text-xl leading-[1.85] mb-8 max-w-2xl">
-                  "{testimonials[active].text}"
+                  &ldquo;{testimonials[active].text}&rdquo;
                 </p>
 
                 <div className="font-display font-bold text-slate-900 text-base">{testimonials[active].name}</div>

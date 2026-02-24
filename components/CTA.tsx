@@ -272,8 +272,8 @@ export default function CTA() {
               </div>
 
               {[
-                { Icon: Mail, label: "Email", value: "hello@valaidhalam.com", href: "mailto:hello@valaidhalam.com" },
-                { Icon: Phone, label: "Phone", value: "+91 99999 99999", href: "tel:+919999999999" },
+                { Icon: Mail, label: "Email", value: "valaidhalam03@gmail.com", href: "mailto:valaidhalam03@gmail.com" },
+                { Icon: Phone, label: "Phone", value: "+91 94877 39484", href: "tel:+919487739484" },
                 { Icon: MapPin, label: "Location", value: "Tamil Nadu, India", href: "#" },
               ].map(({ Icon, label, value, href }, i) => (
                 <motion.a

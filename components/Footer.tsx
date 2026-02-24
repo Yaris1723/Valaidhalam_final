@@ -45,8 +45,8 @@ export default function Footer() {
 
             <div className="mt-6 space-y-3">
               {[
-                { Icon: Mail, text: "hello@valaidhalam.com" },
-                { Icon: Phone, text: "+91 99999 99999" },
+                { Icon: Mail, text: "valaidhalam03@gmail.com" },
+                { Icon: Phone, text: "+91 94877 39484" },
                 { Icon: MapPin, text: "Tamil Nadu, India" },
               ].map(({ Icon, text }) => (
                 <div key={text} className="flex items-center gap-2.5 text-slate-500 text-[13px] font-jakarta">

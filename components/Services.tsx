@@ -15,7 +15,7 @@ const services = [
     accentColor: "#1d4ed8",
     lightBg: "#eff6ff",
     delay: 0,
-    highlights: ["React / Next.js", "Node.js APIs", "PostgreSQL & MongoDB", "CI/CD Pipelines"],
+    highlights: ["React / Next.js", "Node.js APIs", "MongoDB", "CI/CD Pipelines"],
   },
   {
     icon: Globe,
@@ -44,7 +44,7 @@ const services = [
 function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const [hovered, setHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const Icon = s.icon;
 
   return (
@@ -53,26 +53,24 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
       initial={{ opacity: 0, y: 60, scale: 0.95 }}
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
       transition={{ duration: 0.75, ease: [0.34, 1.1, 0.64, 1], delay: s.delay }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      className="group relative"
+      className="relative cursor-pointer"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <motion.div
-        className="relative bg-white rounded-[24px] overflow-hidden border border-slate-100/80 h-full flex flex-col"
-        animate={{
-          y: hovered ? -10 : 0,
-          boxShadow: hovered
+      <div
+        className="relative bg-white rounded-[24px] overflow-hidden border border-slate-100/80 h-full flex flex-col transition-all duration-300 ease-out"
+        style={{
+          transform: isHovered ? 'translateY(-8px)' : 'translateY(0)',
+          boxShadow: isHovered
             ? `0 30px 70px rgba(${s.accentColor === "#1d4ed8" ? "29,78,216" : s.accentColor === "#0284c7" ? "2,132,199" : "8,145,178"},0.16), 0 0 0 1.5px ${s.accentColor}20`
             : "0 4px 24px rgba(0,0,0,0.06)",
         }}
-        transition={{ duration: 0.38, ease: [0.34, 1.1, 0.64, 1] }}
       >
         {/* Image with overlay */}
         <div className="relative overflow-hidden" style={{ height: "200px" }}>
-          <motion.div
-            animate={{ scale: hovered ? 1.07 : 1 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="w-full h-full"
+          <div
+            className="w-full h-full transition-transform duration-400 ease-out"
+            style={{ transform: isHovered ? 'scale(1.05)' : 'scale(1)' }}
           >
             <Image
               src={s.img}
@@ -80,7 +78,7 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
           <div className="absolute inset-0" style={{
             background: `linear-gradient(180deg, ${s.accentColor}22 0%, ${s.accentColor}55 100%)`
           }} />
@@ -115,11 +113,13 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
 
           <p className="text-slate-500 text-sm leading-[1.85] mb-6 flex-1">{s.desc}</p>
 
-          {/* Highlights */}
-          <motion.div
-            animate={{ height: hovered ? "auto" : 0, opacity: hovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden mb-4"
+          {/* Highlights - only shows on hover */}
+          <div
+            className="overflow-hidden mb-4 transition-all duration-300 ease-out"
+            style={{
+              maxHeight: isHovered ? '100px' : '0px',
+              opacity: isHovered ? 1 : 0,
+            }}
           >
             <div className="grid grid-cols-2 gap-1.5 pt-1 pb-3 border-t border-slate-100">
               {s.highlights.map((h) => (
@@ -129,19 +129,21 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.a
+          <a
             href="#contact"
-            className="inline-flex items-center gap-1.5 text-sm font-bold font-display transition-all"
-            style={{ color: s.accentColor }}
-            animate={{ x: hovered ? 3 : 0 }}
+            className="inline-flex items-center gap-1.5 text-sm font-bold font-display transition-transform duration-300"
+            style={{
+              color: s.accentColor,
+              transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
+            }}
           >
             Get Started
             <ArrowUpRight size={15} strokeWidth={2.5} />
-          </motion.a>
+          </a>
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }
@@ -160,13 +162,6 @@ export default function Services() {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 mb-5">
-            <span className="w-6 h-0.5 bg-blue-500 rounded-full" />
-            <span className="text-blue-600 text-xs font-bold uppercase tracking-[0.15em] font-display">
-              What We Do
-            </span>
-            <span className="w-6 h-0.5 bg-blue-500 rounded-full" />
-          </div>
           <h2
             className="font-display font-extrabold text-slate-900 leading-tight tracking-tight mb-4"
             style={{ fontSize: "clamp(2.1rem, 4.5vw, 3.2rem)" }}
@@ -183,8 +178,14 @@ export default function Services() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((s, i) => <ServiceCard key={i} s={s} i={i} />)}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+          {services.map((s, i) => (
+            <ServiceCard
+              key={i}
+              s={s}
+              i={i}
+            />
+          ))}
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Lightbulb, PenTool, Code2, Rocket } from "lucide-react";
 import Image from "next/image";
@@ -43,12 +43,25 @@ const steps = [
 export default function Process() {
   const trackRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const trackInView = useInView(trackRef, { once: true, margin: "-80px" });
   const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
+  const sectionInView = useInView(sectionRef, { margin: "-100px" });
   const [activeStep, setActiveStep] = useState(0);
 
+  // Auto-scroll through steps when section is in view
+  useEffect(() => {
+    if (!sectionInView) return;
+    
+    const interval = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % steps.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [sectionInView]);
+
   return (
-    <section id="process" className="bg-[#f7f9ff] py-28 px-6 overflow-hidden">
+    <section id="process" ref={sectionRef} className="bg-[#f7f9ff] py-28 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
@@ -59,11 +72,6 @@ export default function Process() {
           transition={{ duration: 0.7 }}
           className="text-center mb-20"
         >
-          <div className="inline-flex items-center gap-2 mb-5">
-            <span className="w-6 h-0.5 bg-blue-500 rounded-full" />
-            <span className="text-blue-600 text-xs font-bold uppercase tracking-[0.15em] font-display">How We Work</span>
-            <span className="w-6 h-0.5 bg-blue-500 rounded-full" />
-          </div>
           <h2
             className="font-display font-extrabold text-slate-900 leading-tight tracking-tight mb-4"
             style={{ fontSize: "clamp(2.1rem, 4.5vw, 3.2rem)" }}

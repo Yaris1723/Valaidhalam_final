@@ -8,7 +8,6 @@ const socials = [
   { Icon: Twitter, href: "#", label: "Twitter", color: "#1DA1F2" },
   { Icon: Linkedin, href: "#", label: "LinkedIn", color: "#0077B5" },
   { Icon: Instagram, href: "#", label: "Instagram", color: "#E1306C" },
-  { Icon: Github, href: "#", label: "GitHub", color: "#24292e" },
 ];
 
 const footerCols = {
@@ -92,30 +91,6 @@ export default function Footer() {
               </ul>
             </div>
           ))}
-
-          {/* Newsletter */}
-          <div className="lg:col-span-2">
-            <h4 className="font-display font-bold text-slate-900 text-[12px] uppercase tracking-[0.1em] mb-5">
-              Stay Updated
-            </h4>
-            <p className="text-slate-500 text-[13px] leading-relaxed mb-4 font-jakarta">
-              Get the latest insights on web tech, design trends, and growth strategies.
-            </p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="flex-1 px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-blue-400 focus:bg-white transition-all duration-200 font-jakarta"
-              />
-              <motion.button
-                className="px-4 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-display font-bold flex-shrink-0"
-                whileHover={{ scale: 1.04, backgroundColor: "#1d4ed8" }}
-                whileTap={{ scale: 0.96 }}
-              >
-                →
-              </motion.button>
-            </div>
-          </div>
         </div>
 
         {/* Bottom */}

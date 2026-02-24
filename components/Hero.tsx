@@ -106,25 +106,6 @@ export default function Hero() {
         <div className="text-blue-300/60 text-[11px]">100+ happy clients</div>
       </motion.div>
 
-      {/* Floating image card — bottom left */}
-      <motion.div
-        className="absolute left-[5%] bottom-[22%] hidden xl:block rounded-2xl overflow-hidden z-10"
-        style={{ boxShadow: "0 20px 60px rgba(0,0,0,0.4)", animation: "floatMedium 6s ease-in-out 1s infinite" }}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2.0, duration: 0.8 }}
-      >
-        <Image
-          src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=160&h=100&fit=crop&auto=format"
-          alt="Team working"
-          width={160}
-          height={100}
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/70 to-transparent flex items-end p-3">
-          <span className="text-white text-[11px] font-bold font-display">Our Team →</span>
-        </div>
-      </motion.div>
 
       {/* Hero content */}
       <div className="relative z-10 text-center px-6 max-w-[860px] mx-auto">
@@ -236,28 +217,28 @@ export default function Hero() {
 
       {/* Wave bottom */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none">
-        <svg viewBox="0 0 1440 110" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full block" height="110">
+        <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full block" style={{ height: '120px' }}>
           <motion.path
-            d="M0,55 C240,95 480,15 720,55 C960,95 1200,15 1440,55 L1440,110 L0,110 Z"
+            d="M0,55 C240,95 480,15 720,55 C960,95 1200,15 1440,55 L1440,120 L0,120 Z"
             fill="white" fillOpacity="0.05"
             animate={{ d: [
-              "M0,55 C240,95 480,15 720,55 C960,95 1200,15 1440,55 L1440,110 L0,110 Z",
-              "M0,65 C240,25 480,95 720,65 C960,35 1200,85 1440,65 L1440,110 L0,110 Z",
-              "M0,55 C240,95 480,15 720,55 C960,95 1200,15 1440,55 L1440,110 L0,110 Z",
+              "M0,55 C240,95 480,15 720,55 C960,95 1200,15 1440,55 L1440,120 L0,120 Z",
+              "M0,65 C240,25 480,95 720,65 C960,35 1200,85 1440,65 L1440,120 L0,120 Z",
+              "M0,55 C240,95 480,15 720,55 C960,95 1200,15 1440,55 L1440,120 L0,120 Z",
             ]}}
             transition={{ duration: 8, ease: "easeInOut", repeat: Infinity }}
           />
           <motion.path
-            d="M0,78 C360,38 720,100 1080,62 C1260,40 1380,72 1440,78 L1440,110 L0,110 Z"
+            d="M0,78 C360,38 720,100 1080,62 C1260,40 1380,72 1440,78 L1440,120 L0,120 Z"
             fill="white" fillOpacity="0.07"
             animate={{ d: [
-              "M0,78 C360,38 720,100 1080,62 C1260,40 1380,72 1440,78 L1440,110 L0,110 Z",
-              "M0,88 C360,68 720,42 1080,82 C1260,96 1380,55 1440,88 L1440,110 L0,110 Z",
-              "M0,78 C360,38 720,100 1080,62 C1260,40 1380,72 1440,78 L1440,110 L0,110 Z",
+              "M0,78 C360,38 720,100 1080,62 C1260,40 1380,72 1440,78 L1440,120 L0,120 Z",
+              "M0,88 C360,68 720,42 1080,82 C1260,96 1380,55 1440,88 L1440,120 L0,120 Z",
+              "M0,78 C360,38 720,100 1080,62 C1260,40 1380,72 1440,78 L1440,120 L0,120 Z",
             ]}}
             transition={{ duration: 10, ease: "easeInOut", repeat: Infinity, delay: 1 }}
           />
-          <path d="M0,95 C180,75 360,104 720,95 C1080,82 1280,106 1440,95 L1440,110 L0,110 Z" fill="white" />
+          <path d="M0,95 C180,75 360,104 720,95 C1080,82 1280,106 1440,95 L1440,120 L0,120 Z" fill="#f7f9ff" />
         </svg>
       </div>
     </section>

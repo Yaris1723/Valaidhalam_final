@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
@@ -25,10 +25,22 @@ const testimonials = [
 export default function Testimonials() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const sectionInView = useInView(ref, { margin: "-100px" });
   const [active, setActive] = useState(0);
 
   const prev = () => setActive((p) => (p - 1 + testimonials.length) % testimonials.length);
   const next = () => setActive((p) => (p + 1) % testimonials.length);
+
+  // Auto-scroll through testimonials when section is in view
+  useEffect(() => {
+    if (!sectionInView) return;
+    
+    const interval = setInterval(() => {
+      setActive((prev) => (prev + 1) % testimonials.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [sectionInView]);
 
   return (
     <section ref={ref} className="bg-white py-24 px-6 overflow-hidden">
@@ -39,21 +51,15 @@ export default function Testimonials() {
           transition={{ duration: 0.7 }}
           className="text-center mb-14"
         >
-          <div className="inline-flex items-center gap-2 mb-5">
-            <span className="w-6 h-0.5 bg-blue-500 rounded-full" />
-            <span className="text-blue-600 text-xs font-bold uppercase tracking-[0.15em] font-display">Client Love</span>
-            <span className="w-6 h-0.5 bg-blue-500 rounded-full" />
-          </div>
           <h2
-            className="font-display font-extrabold text-slate-900 leading-tight tracking-tight"
-            style={{ fontSize: "clamp(2rem, 4.5vw, 3rem)" }}
+            className="font-display font-extrabold text-slate-900 leading-tight tracking-tight mb-4"
+            style={{ fontSize: "clamp(2.1rem, 4.5vw, 3.2rem)" }}
           >
-            Trusted by builders
-            <br />
+            Client{" "}
             <span style={{
               background: "linear-gradient(135deg, #1d4ed8, #06b6d4)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text"
-            }}>across the globe</span>
+            }}>love</span>
           </h2>
         </motion.div>
 

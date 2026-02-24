@@ -140,12 +140,6 @@ export default function About() {
             animate={rightInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 1, ease: [0.34, 1.1, 0.64, 1], delay: 0.15 }}
           >
-            <div className="inline-flex items-center gap-2 mb-5">
-              <span className="w-6 h-0.5 bg-blue-500 rounded-full" />
-              <span className="text-blue-600 text-xs font-bold uppercase tracking-[0.15em] font-display">
-                Who We Are
-              </span>
-            </div>
 
             <h2
               className="font-display font-extrabold text-slate-900 leading-[1.12] tracking-tight mb-6"

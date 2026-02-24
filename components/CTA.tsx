@@ -147,8 +147,30 @@ export default function CTA() {
     e.preventDefault();
     if (!validate()) return;
     setStatus("submitting");
-    await new Promise((r) => setTimeout(r, 1800));
-    setStatus("success");
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+      } else {
+        const data = await response.json();
+        console.error("Submission failed:", data.error);
+        setStatus("error");
+        // Reset to idle after 3 seconds so user can try again
+        setTimeout(() => setStatus("idle"), 3000);
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 3000);
+    }
   };
 
   const set = (field: keyof FormData) => (
@@ -385,6 +407,15 @@ export default function CTA() {
                     <div className="mb-6">
                       <h3 className="font-display font-bold text-white text-xl">Send us a message</h3>
                       <p className="text-blue-300/50 text-xs font-jakarta mt-1">All fields marked * are required</p>
+                      {status === "error" && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          className="mt-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-200 text-xs font-jakarta"
+                        >
+                          Something went wrong. Please check your connection and try again.
+                        </motion.div>
+                      )}
                     </div>
 
                     {/* Row 1: Name + Email */}

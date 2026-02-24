@@ -19,9 +19,25 @@ export default function Navbar() {
   const [activeLink, setActiveLink] = useState("Home");
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
+    const handleScroll = () => {
+      // Update scrolled state
+      setScrolled(window.scrollY > 60);
+
+      // Update active link based on scroll position
+      const sections = navLinks.map(link => document.getElementById(link.href.substring(1)));
+      const scrollPosition = window.scrollY + 150;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveLink(navLinks[i].label);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (

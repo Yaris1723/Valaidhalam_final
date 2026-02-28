@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',  // Add this for Hostinger
   images: {
     remotePatterns: [
       {
@@ -7,6 +8,7 @@ const nextConfig = {
         hostname: 'images.unsplash.com',
       },
     ],
+    unoptimized: true,  // Required when using output: 'export'
   },
 
   eslint: {

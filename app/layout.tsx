@@ -23,6 +23,12 @@ export const metadata: Metadata = {
   keywords: ["web development", "full-stack", "React", "Next.js", "Tamil Nadu", "tech services"],
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{

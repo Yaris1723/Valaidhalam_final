@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Lightbulb, PenTool, Code2, Rocket } from "lucide-react";
 import Image from "next/image";
 
@@ -41,28 +41,27 @@ const steps = [
 ];
 
 export default function Process() {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const trackInView = useInView(trackRef, { once: true, margin: "-80px" });
-  const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
-  const sectionInView = useInView(sectionRef, { margin: "-100px" });
+  const headerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"]
+  });
+  
+  // Transform scroll progress to active step (0-3)
+  const activeStepMotion = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 0, 1, 2, 3]);
   const [activeStep, setActiveStep] = useState(0);
-
-  // Auto-scroll through steps when section is in view
+  
   useEffect(() => {
-    if (!sectionInView) return;
-    
-    const interval = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % steps.length);
-    }, 3000);
+    const unsubscribe = activeStepMotion.on("change", (v) => setActiveStep(Math.round(v)));
+    return () => unsubscribe();
+  }, [activeStepMotion]);
 
-    return () => clearInterval(interval);
-  }, [sectionInView]);
+  const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
 
   return (
-    <section id="process" ref={sectionRef} className="bg-[#f7f9ff] py-28 px-6 overflow-hidden">
-      <div className="max-w-6xl mx-auto">
+    <section id="process" ref={sectionRef} className="bg-[#f7f9ff] px-6" style={{ minHeight: "400vh" }}>
+      <div className="max-w-6xl mx-auto sticky top-0 h-screen flex flex-col justify-center py-12">
 
         {/* Header */}
         <motion.div
@@ -70,7 +69,7 @@ export default function Process() {
           initial={{ opacity: 0, y: 35 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-20"
+          className="text-center mb-6"
         >
           <h2
             className="font-display font-extrabold text-slate-900 leading-tight tracking-tight mb-4"
@@ -83,21 +82,22 @@ export default function Process() {
             }}>for clarity</span>
           </h2>
           <p className="text-slate-500 max-w-md mx-auto leading-relaxed text-[15px]">
-            Every great product starts with a proven foundation. Here&apos;s how we turn your idea into reality.
+            Every great product starts with a proven foundation. Here's how we turn your idea into reality.
           </p>
         </motion.div>
 
         {/* Step selectors */}
-        <div ref={trackRef} className="relative mb-12">
+        <div className="relative mb-4">
           {/* Animated connector */}
           <div className="hidden lg:block absolute top-[42px] left-[12%] w-[76%] h-[2px] bg-blue-100 overflow-hidden rounded">
-            {trackInView && (
+            {headerInView && (
               <motion.div
                 className="h-full rounded"
-                style={{ background: "linear-gradient(90deg, #1d4ed8, #3b82f6, #06b6d4)", transformOrigin: "left" }}
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 1.6, ease: [0.4, 0, 0.2, 1], delay: 0.3 }}
+                style={{ 
+                  background: "linear-gradient(90deg, #1d4ed8, #3b82f6, #06b6d4)", 
+                  transformOrigin: "left",
+                  scaleX: scrollYProgress
+                }}
               />
             )}
           </div>
@@ -110,9 +110,8 @@ export default function Process() {
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 40 }}
-                  animate={trackInView ? { opacity: 1, y: 0 } : {}}
+                  animate={headerInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.7, ease: [0.34, 1.1, 0.64, 1], delay: step.delay + 0.2 }}
-                  onClick={() => setActiveStep(i)}
                   className="text-center cursor-pointer group"
                 >
                   <motion.div

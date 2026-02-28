@@ -63,20 +63,22 @@ export default function Navbar() {
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           {/* Logo */}
-          <motion.span
-            className="font-display font-extrabold tracking-tight mr-3 select-none cursor-pointer"
-            style={{
-              fontSize: "1.18rem",
-              background: "linear-gradient(135deg, #1d4ed8, #3b82f6, #06b6d4)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-          >
-            Valaidhalam
-          </motion.span>
+          <Link href="#home">
+            <motion.span
+              className="font-display font-extrabold tracking-tight mr-3 select-none cursor-pointer"
+              style={{
+                fontSize: "clamp(1rem, 2.5vw, 1.25rem)",
+                background: "linear-gradient(135deg, #1d4ed8, #3b82f6, #06b6d4)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
+              Valaidhalam
+            </motion.span>
+          </Link>
 
           {/* Desktop Links */}
           <ul className="hidden md:flex items-center gap-0.5 mr-2">
@@ -85,7 +87,7 @@ export default function Navbar() {
                 <Link
                   href={link.href}
                   onClick={() => setActiveLink(link.label)}
-                  className="relative px-4 py-2 text-[13.5px] font-semibold text-slate-600 rounded-full transition-colors duration-200 hover:text-blue-600 block"
+                  className="relative px-3 py-2 md:px-4 font-semibold text-slate-600 rounded-full transition-colors duration-200 hover:text-blue-600 block text-xs md:text-sm"
                 >
                   {activeLink === link.label && (
                     <motion.span

@@ -371,39 +371,25 @@ export default function CTA() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
-                    className="py-16 text-center"
+                    className="py-4 text-center mb-4 rounded-xl bg-emerald-500/10 border border-emerald-400/20"
                   >
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.1, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
-                      className="w-20 h-20 rounded-full bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center mx-auto mb-6"
-                    >
-                      <CheckCircle2 size={36} className="text-emerald-400" />
-                    </motion.div>
-                    <h3 className="font-display font-extrabold text-white text-2xl mb-3">Message Sent! 🎉</h3>
-                    <p className="text-blue-200/70 font-jakarta text-sm leading-relaxed max-w-xs mx-auto mb-8">
-                      Thanks for reaching out, <span className="text-white font-semibold">{form.name}</span>! We&apos;ll get back to you within 24 hours.
-                    </p>
-                    <motion.button
-                      onClick={() => { setStatus("idle"); setForm({ name: "", email: "", company: "", phone: "", service: "", budget: "", message: "" }); }}
-                      className="px-6 py-3 rounded-full glass-dark text-blue-300 text-sm font-display font-semibold hover:bg-white/10 transition-all"
-                      whileHover={{ scale: 1.04 }}
-                      whileTap={{ scale: 0.96 }}
-                    >
-                      Send another message
-                    </motion.button>
+                    <div className="flex items-center justify-center gap-2">
+                      <CheckCircle2 size={20} className="text-emerald-400" />
+                      <span className="text-emerald-300 font-semibold">Message sent successfully!</span>
+                    </div>
+                    <p className="text-blue-200/60 text-xs mt-1">We'll get back to you within 24 hours</p>
                   </motion.div>
-                ) : (
-                  /* ── Form state ── */
-                  <motion.form
-                    key="form"
-                    onSubmit={handleSubmit}
-                    initial={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="relative z-10 space-y-5"
-                    noValidate
-                  >
+                ) : null}
+              </AnimatePresence>
+              {/* Form state */}
+              <motion.form
+                key="form"
+                onSubmit={handleSubmit}
+                initial={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="relative z-10 space-y-5"
+                noValidate
+              >
                     <div className="mb-6">
                       <h3 className="font-display font-bold text-white text-xl">Send us a message</h3>
                       <p className="text-blue-300/50 text-xs font-jakarta mt-1">All fields marked * are required</p>
@@ -545,8 +531,6 @@ export default function CTA() {
                       </p>
                     </div>
                   </motion.form>
-                )}
-              </AnimatePresence>
             </div>
           </motion.div>
         </div>

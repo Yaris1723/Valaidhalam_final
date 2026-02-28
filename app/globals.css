@@ -82,3 +82,30 @@ body {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-12px); }
 }
+/* ADD this after your existing @keyframes marquee */
+.animate-marquee {
+  animation: marquee 22s linear infinite;
+  display: flex;
+  white-space: nowrap;
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 20px;
+  color: rgba(147, 197, 253, 0.5);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: var(--font-bricolage), sans-serif;
+}
+
+.marquee-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.4);
+  flex-shrink: 0;
+}

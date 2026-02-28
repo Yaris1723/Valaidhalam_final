@@ -194,12 +194,12 @@ export default function Hero() {
           <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
             style={{ background: "linear-gradient(-90deg, #0a1d4a, transparent)" }} />
           <div className="flex animate-marquee whitespace-nowrap">
-            {[...TECH_LOGOS, ...TECH_LOGOS].map((logo, i) => (
-              <span key={i} className="inline-flex items-center gap-2 mx-5 text-blue-300/50 text-xs font-bold font-display uppercase tracking-widest">
-                <span className="w-1 h-1 rounded-full bg-blue-500/40" />
-                {logo}
-              </span>
-            ))}
+           {[...TECH_LOGOS, ...TECH_LOGOS].map((logo, i) => (
+  <span key={i} className="marquee-item">
+    <span className="marquee-dot" />
+    {logo}
+  </span>
+))}
           </div>
         </motion.div>
       </div>

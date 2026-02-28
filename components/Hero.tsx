@@ -108,7 +108,7 @@ export default function Hero() {
 
 
       {/* Hero content */}
-      <div className="relative z-10 text-center px-6 max-w-[860px] mx-auto">
+      <div className="relative z-10 text-center px-6 max-w-[860px] mx-auto pt-12">
         {/* Badge */}
         <motion.div
           variants={staggerChild}

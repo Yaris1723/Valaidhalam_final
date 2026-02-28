@@ -27,6 +27,8 @@ body {
   backdrop-filter: blur(22px) saturate(180%);
   -webkit-backdrop-filter: blur(22px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.65);
+  width: fit-content;      /* ← is this added? */
+  max-width: fit-content;  /* ← is this added? */
 }
 .glass-dark {
   background: rgba(255, 255, 255, 0.07);

@@ -50,7 +50,7 @@ export default function Navbar() {
         transition={{ duration: 0.9, ease: [0.34, 1.56, 0.64, 1], delay: 0.4 }}
       >
         <motion.div
-          className="glass flex items-center gap-1 rounded-full"
+          className="glass flex items-center gap-1 rounded-full h-[52px]"
           animate={{
             paddingLeft: scrolled ? "16px" : "20px",
             paddingRight: scrolled ? "16px" : "20px",

@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowRight, Sparkles, ChevronDown } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight, ChevronDown } from "lucide-react";
 
 const TECH_LOGOS = ["React", "Next.js", "Node", "TypeScript", "AWS", "Figma", "MongoDB", "Tailwind", "GraphQL", "Docker", "Vercel", "Stripe"];
 
@@ -106,18 +105,8 @@ export default function Hero() {
         <div className="text-blue-300/60 text-[11px]">100+ happy clients</div>
       </motion.div>
 
-
       {/* Hero content */}
-      <div className="relative z-10 text-center px-6 max-w-[860px] mx-auto pt-12">
-        {/* Badge */}
-        <motion.div
-          variants={staggerChild}
-          initial="initial"
-          animate="animate"
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="inline-block mb-8"
-        >
-        </motion.div>
+      <div className="relative z-10 text-center px-6 max-w-[860px] mx-auto pt-6">
 
         {/* Headline */}
         <motion.h1
@@ -148,7 +137,7 @@ export default function Hero() {
           initial="initial"
           animate="animate"
           transition={{ duration: 0.8, delay: 1.0 }}
-          className="text-blue-200/75 font-jakarta font-light leading-[1.85] mb-10 mx-auto max-w-[560px]"
+          className="text-blue-200/75 font-jakarta font-light leading-[1.85] mb-4 mx-auto max-w-[560px]"
           style={{ fontSize: "clamp(1rem, 2vw, 1.18rem)" }}
         >
           We engineer modern digital solutions — from sleek web apps to enterprise-grade platforms — built to grow with your ambition and captivate your users from the first click.
@@ -160,7 +149,7 @@ export default function Hero() {
           initial="initial"
           animate="animate"
           transition={{ duration: 0.8, delay: 1.2 }}
-          className="flex flex-wrap items-center justify-center gap-4 mb-16"
+          className="flex flex-wrap items-center justify-center gap-4 mb-8"
         >
           <motion.a
             href="#services"
@@ -181,28 +170,32 @@ export default function Hero() {
             See Our Work
           </motion.a>
         </motion.div>
-
-        {/* Tech marquee */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="relative overflow-hidden"
-        >
-          <div className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(90deg, #0a1d4a, transparent)" }} />
-          <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(-90deg, #0a1d4a, transparent)" }} />
-          <div className="flex animate-marquee whitespace-nowrap">
-           {[...TECH_LOGOS, ...TECH_LOGOS].map((logo, i) => (
-  <span key={i} className="marquee-item">
-    <span className="marquee-dot" />
-    {logo}
-  </span>
-))}
-          </div>
-        </motion.div>
       </div>
+
+      {/* Tech marquee — outside content div, absolutely positioned above wave */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-20 left-0 right-0 overflow-hidden z-10"
+      >
+        <div
+          className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(90deg, #0a1d4a, transparent)" }}
+        />
+        <div
+          className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(-90deg, #0a1d4a, transparent)" }}
+        />
+        <div className="flex animate-marquee whitespace-nowrap">
+          {[...TECH_LOGOS, ...TECH_LOGOS].map((logo, i) => (
+            <span key={i} className="marquee-item">
+              <span className="marquee-dot" />
+              {logo}
+            </span>
+          ))}
+        </div>
+      </motion.div>
 
       {/* Scroll cue */}
       <motion.div

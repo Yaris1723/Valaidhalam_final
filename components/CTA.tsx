@@ -252,99 +252,11 @@ export default function CTA() {
         {/* Two-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 xl:gap-12 items-start">
 
-          {/* LEFT — Contact Info */}
+          {/* LEFT — Form */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.15, ease: [0.34, 1.1, 0.64, 1] }}
-            className="lg:col-span-2 space-y-6"
-          >
-            {/* Info card */}
-            <div
-              className="rounded-3xl p-7 space-y-6"
-              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", backdropFilter: "blur(10px)" }}
-            >
-              <div>
-                <h3 className="font-display font-bold text-white text-xl mb-1.5">Contact Information</h3>
-                <p className="text-blue-300/60 text-sm font-jakarta leading-relaxed">
-                  Reach us directly or fill the form — we&apos;re always happy to talk.
-                </p>
-              </div>
-
-              {[
-                { Icon: Mail, label: "Email", value: "valaidhalam03@gmail.com", href: "mailto:valaidhalam03@gmail.com" },
-                { Icon: Phone, label: "Phone", value: "+91 94877 39484", href: "tel:+919487739484" },
-                { Icon: MapPin, label: "Location", value: "Tamil Nadu, India", href: "#" },
-              ].map(({ Icon, label, value, href }, i) => (
-                <motion.a
-                  key={label}
-                  href={href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
-                  className="flex items-start gap-4 group"
-                  whileHover={{ x: 4 }}
-                >
-                  <div
-                    className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all duration-200 group-hover:scale-105"
-                    style={{ background: "rgba(59,130,246,0.18)", border: "1px solid rgba(96,165,250,0.2)" }}
-                  >
-                    <Icon size={17} className="text-blue-400" />
-                  </div>
-                  <div>
-                    <div className="text-blue-300/50 text-[11px] font-bold uppercase tracking-widest font-display">{label}</div>
-                    <div className="text-white text-sm font-jakarta font-medium mt-0.5 group-hover:text-blue-300 transition-colors">{value}</div>
-                  </div>
-                </motion.a>
-              ))}
-            </div>
-
-            {/* Response time promise */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="rounded-3xl p-6 flex items-center gap-4"
-              style={{ background: "rgba(96,165,250,0.08)", border: "1px solid rgba(96,165,250,0.15)" }}
-            >
-              <div className="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-2xl">⚡</span>
-              </div>
-              <div>
-                <div className="font-display font-bold text-white text-sm">Fast Response Guarantee</div>
-                <div className="text-blue-300/60 text-xs font-jakarta mt-0.5 leading-relaxed">
-                  We respond to all inquiries within 24 hours — usually much faster.
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Office image */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 0.7, duration: 0.7 }}
-              className="rounded-3xl overflow-hidden relative"
-              style={{ height: "180px" }}
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=300&fit=crop&auto=format"
-                alt="Our workspace"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0c1f4a]/80 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-5">
-                <div className="text-white font-display font-bold text-sm">Our Studio</div>
-                <div className="text-blue-300/70 text-xs font-jakarta">Tamil Nadu, India</div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* RIGHT — Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.25, ease: [0.34, 1.1, 0.64, 1] }}
             className="lg:col-span-3"
           >
             <div
@@ -532,6 +444,94 @@ export default function CTA() {
                     </div>
                   </motion.form>
             </div>
+          </motion.div>
+
+          {/* RIGHT — Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.25, ease: [0.34, 1.1, 0.64, 1] }}
+            className="lg:col-span-2 space-y-6"
+          >
+            {/* Info card */}
+            <div
+              className="rounded-3xl p-7 space-y-6"
+              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", backdropFilter: "blur(10px)" }}
+            >
+              <div>
+                <h3 className="font-display font-bold text-white text-xl mb-1.5">Contact Information</h3>
+                <p className="text-blue-300/60 text-sm font-jakarta leading-relaxed">
+                  Reach us directly or fill the form — we&apos;re always happy to talk.
+                </p>
+              </div>
+
+              {[
+                { Icon: Mail, label: "Email", value: "valaidhalam03@gmail.com", href: "mailto:valaidhalam03@gmail.com" },
+                { Icon: Phone, label: "Phone", value: "+91 94877 39484", href: "tel:+919487739484" },
+                { Icon: MapPin, label: "Location", value: "Tamil Nadu, India", href: "#" },
+              ].map(({ Icon, label, value, href }, i) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
+                  className="flex items-start gap-4 group"
+                  whileHover={{ x: 4 }}
+                >
+                  <div
+                    className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all duration-200 group-hover:scale-105"
+                    style={{ background: "rgba(59,130,246,0.18)", border: "1px solid rgba(96,165,250,0.2)" }}
+                  >
+                    <Icon size={17} className="text-blue-400" />
+                  </div>
+                  <div>
+                    <div className="text-blue-300/50 text-[11px] font-bold uppercase tracking-widest font-display">{label}</div>
+                    <div className="text-white text-sm font-jakarta font-medium mt-0.5 group-hover:text-blue-300 transition-colors">{value}</div>
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+
+            {/* Response time promise */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="rounded-3xl p-6 flex items-center gap-4"
+              style={{ background: "rgba(96,165,250,0.08)", border: "1px solid rgba(96,165,250,0.15)" }}
+            >
+              <div className="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                <span className="text-2xl">⚡</span>
+              </div>
+              <div>
+                <div className="font-display font-bold text-white text-sm">Fast Response Guarantee</div>
+                <div className="text-blue-300/60 text-xs font-jakarta mt-0.5 leading-relaxed">
+                  We respond to all inquiries within 24 hours — usually much faster.
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Office image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={inView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: 0.7, duration: 0.7 }}
+              className="rounded-3xl overflow-hidden relative"
+              style={{ height: "180px" }}
+            >
+              <Image
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=300&fit=crop&auto=format"
+                alt="Our workspace"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0c1f4a]/80 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-5">
+                <div className="text-white font-display font-bold text-sm">Our Studio</div>
+                <div className="text-blue-300/70 text-xs font-jakarta">Tamil Nadu, India</div>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

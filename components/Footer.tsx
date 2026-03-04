@@ -1,24 +1,46 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { Twitter, Linkedin, Instagram, Github, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import { Twitter, Linkedin, Instagram, Github, Mail, Phone, MapPin, ArrowUpRight, Facebook } from "lucide-react";
+import CareersModal from "./CareersModal";
 
 const socials = [
-  { Icon: Twitter, href: "#", label: "Twitter", color: "#1DA1F2" },
+  { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=61587538686893", label: "Facebook", color: "#1877F2" },
+  { Icon: Instagram, href: "https://www.instagram.com/valaidhalam.in/", label: "Instagram", color: "#E1306C" },
   { Icon: Linkedin, href: "#", label: "LinkedIn", color: "#0077B5" },
-  { Icon: Instagram, href: "#", label: "Instagram", color: "#E1306C" },
 ];
-
-const footerCols = {
-  Services: ["Full-Stack Dev", "Web Applications", "Social Media", "Consulting"],
-  Company: ["About Us", "Our Process", "Careers", "Blog"],
-  Legal: ["Privacy Policy", "Terms of Service", "Cookies"],
-};
 
 export default function Footer() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+  const [isCareersModalOpen, setIsCareersModalOpen] = useState(false);
+
+  type FooterLink = {
+    label: string;
+    href: string;
+    onClick?: () => void;
+  };
+
+  const footerCols: Record<string, FooterLink[]> = {
+    Services: [
+      { label: "Full-Stack Dev", href: "#services" },
+      { label: "Web Applications", href: "#services" },
+      { label: "Social Media", href: "#services" },
+      { label: "Consulting", href: "#services" },
+    ],
+    Company: [
+      { label: "About Us", href: "#about" },
+      { label: "Our Process", href: "#process" },
+      { label: "Careers", href: "#", onClick: () => setIsCareersModalOpen(true) },
+      { label: "Blog", href: "#blog" },
+    ],
+    Legal: [
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
+      { label: "Cookies", href: "#" },
+    ],
+  };
 
   return (
     <motion.footer
@@ -81,9 +103,18 @@ export default function Footer() {
               </h4>
               <ul className="space-y-3">
                 {links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="group inline-flex items-center gap-1 text-slate-500 text-[13.5px] font-jakarta hover:text-blue-600 transition-colors duration-200">
-                      {link}
+                  <li key={link.label}>
+                    <a 
+                      href={link.href} 
+                      onClick={(e) => {
+                        if (link.onClick) {
+                          e.preventDefault();
+                          link.onClick();
+                        }
+                      }}
+                      className="group inline-flex items-center gap-1 text-slate-500 text-[13.5px] font-jakarta hover:text-blue-600 transition-colors duration-200 cursor-pointer"
+                    >
+                      {link.label}
                       <ArrowUpRight size={11} className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-blue-400" />
                     </a>
                   </li>
@@ -103,6 +134,11 @@ export default function Footer() {
           </p>
         </div>
       </div>
+
+      <CareersModal
+        isOpen={isCareersModalOpen}
+        onClose={() => setIsCareersModalOpen(false)}
+      />
     </motion.footer>
   );
 }

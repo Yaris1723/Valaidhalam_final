@@ -1,15 +1,16 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { Code2, Globe, TrendingUp, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
+import ContactModal from "./ContactModal";
 
 const services = [
   {
     icon: Code2,
     title: "Full-Stack Development",
-    desc: "From concept to launch, we deliver scalable and secure applications engineered for performance and reliability. Built to handle growth from day one.",
+    desc: "Launch powerful web applications with our end-to-end full stack development services. We build secure, scalable, and high performance digital platforms designed to grow with your business.",
     img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=480&h=260&fit=crop&auto=format",
     tag: "Engineering",
     accentColor: "#1d4ed8",
@@ -20,7 +21,7 @@ const services = [
   {
     icon: Globe,
     title: "Web Applications",
-    desc: "We create intuitive, responsive web applications that captivate users and function flawlessly on any device. Beautiful interfaces backed by solid engineering.",
+    desc: "We design and develop high performance web applications with intuitive interfaces and reliable backend systems. Our web apps are built to deliver seamless user experiences across desktop, tablet, and mobile devices.",
     img: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=480&h=260&fit=crop&auto=format",
     tag: "Design & Dev",
     accentColor: "#0284c7",
@@ -31,8 +32,8 @@ const services = [
   {
     icon: TrendingUp,
     title: "Social Media Management",
-    desc: "Our strategic social media management grows your brand's influence and converts followers into loyal customers. Data-driven content that resonates and performs.",
-    img: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=480&h=260&fit=crop&auto=format",
+    desc: "Build a strong online presence with professional social media management. We help businesses grow their audience, increase engagement, and convert social media traffic into real customers.",
+    img: "https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=480&h=260&fit=crop&auto=format",
     tag: "Growth",
     accentColor: "#0891b2",
     lightBg: "#ecfeff",
@@ -41,7 +42,7 @@ const services = [
   },
 ];
 
-function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
+function ServiceCard({ s, i, onGetStarted }: { s: typeof services[0]; i: number; onGetStarted: (service: string) => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const [isHovered, setIsHovered] = useState(false);
@@ -131,9 +132,9 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
             </div>
           </div>
 
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-1.5 text-sm font-bold font-display transition-transform duration-300"
+          <button
+            onClick={() => onGetStarted(s.title)}
+            className="inline-flex items-center gap-1.5 text-sm font-bold font-display transition-transform duration-300 cursor-pointer"
             style={{
               color: s.accentColor,
               transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
@@ -141,7 +142,7 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
           >
             Get Started
             <ArrowUpRight size={15} strokeWidth={2.5} />
-          </a>
+          </button>
         </div>
       </div>
     </motion.div>
@@ -151,43 +152,80 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
 export default function Services() {
   const headerRef = useRef<HTMLDivElement>(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState("");
+
+  // Monitor Services section to auto-open modal when scrolled into view
+  useEffect(() => {
+    const servicesSection = document.getElementById("services");
+    if (!servicesSection) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // When services section comes into view, open the modal
+          if (entry.isIntersecting) {
+            setIsModalOpen(true);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(servicesSection);
+    return () => observer.disconnect();
+  }, []);
+
+  const handleGetStarted = (serviceTitle: string) => {
+    setSelectedService(serviceTitle);
+    setIsModalOpen(true);
+  };
 
   return (
-    <section id="services" className="bg-[#f7f9ff] py-28 px-6">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          ref={headerRef}
-          initial={{ opacity: 0, y: 35 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
-        >
-          <h2
-            className="font-display font-extrabold text-slate-900 leading-tight tracking-tight mb-4"
-            style={{ fontSize: "clamp(2.1rem, 4.5vw, 3.2rem)" }}
+    <>
+      <section id="services" className="bg-[#f7f9ff] py-28 px-6">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            ref={headerRef}
+            initial={{ opacity: 0, y: 35 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-16"
           >
-            Services Crafted
-            <br />
-            <span style={{
-              background: "linear-gradient(135deg, #1d4ed8, #3b82f6, #06b6d4)",
-              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text"
-            }}>for Growth</span>
-          </h2>
-          <p className="text-slate-500 max-w-md mx-auto leading-relaxed text-[15px]">
-            We combine strategy, design, and engineering to deliver solutions that actually move the needle for your business.
-          </p>
-        </motion.div>
+            <h2
+              className="font-display font-extrabold text-slate-900 leading-tight tracking-tight mb-4"
+              style={{ fontSize: "clamp(2.1rem, 4.5vw, 3.2rem)" }}
+            >
+              Services Crafted
+              <br />
+              <span style={{
+                background: "linear-gradient(135deg, #1d4ed8, #3b82f6, #06b6d4)",
+                WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text"
+              }}>for Growth</span>
+            </h2>
+            <p className="text-slate-500 max-w-md mx-auto leading-relaxed text-[15px]">
+              We combine strategy, design, and engineering to deliver solutions that actually move the needle for your business.
+            </p>
+          </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-          {services.map((s, i) => (
-            <ServiceCard
-              key={i}
-              s={s}
-              i={i}
-            />
-          ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+            {services.map((s, i) => (
+              <ServiceCard
+                key={i}
+                s={s}
+                i={i}
+                onGetStarted={handleGetStarted}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <ContactModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        preSelectedService={selectedService}
+      />
+    </>
   );
 }

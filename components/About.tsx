@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const tags = ["React & Next.js", "Node.js", "UI/UX Design", "Cloud Infra", "Digital Strategy", "Brand Growth"];
 const stats = [
-  { icon: Users, num: "100+", label: "Happy Clients" },
+  { icon: Users, num: "70+", label: "Happy Clients" },
   { icon: Award, num: "50+", label: "Projects Delivered" },
   { icon: Zap, num: "5yrs", label: "Experience" },
 ];
@@ -155,10 +155,11 @@ export default function About() {
             </h2>
 
             <p className="text-slate-500 leading-[1.9] mb-4 text-[15px]">
-              Valaidhalam is a Tamil Nadu–based tech services studio that partners with startups, SMEs, and enterprises to build digital products they&apos;re proud of. We bring craft and intention to every pixel and every line of code.
+             Valaidhalam is a technology driven digital solutions studio based in Tamil Nadu, India. Our team partners with startups, growing businesses, and enterprises to design and develop powerful digital products that deliver real impact
             </p>
             <p className="text-slate-500 leading-[1.9] mb-8 text-[15px]">
-              Founded on the belief that great software changes lives, our multidisciplinary team blends product thinking, sharp design, and modern engineering to deliver outcomes — not just deliverables.
+             
+With expertise in web development, UI/UX design, and digital growth strategies, we combine creative thinking with strong engineering to build solutions that are scalable, reliable, and built for long-term success.
             </p>
 
             {/* Mini stats */}

@@ -43,7 +43,7 @@ export default function Testimonials() {
   }, [sectionInView]);
 
   return (
-    <section ref={ref} className="bg-white py-24 px-6 overflow-hidden">
+    <section id="client-love" ref={ref} className="bg-white py-24 px-6 overflow-hidden">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

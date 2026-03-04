@@ -102,7 +102,7 @@ export default function Hero() {
           <div className="text-yellow-400 text-xl">★★★★★</div>
         </div>
         <div className="text-white text-xs font-semibold mt-0.5 font-display">98% Client Satisfaction</div>
-        <div className="text-blue-300/60 text-[11px]">100+ happy clients</div>
+        <div className="text-blue-300/60 text-[11px]">70+ happy clients</div>
       </motion.div>
 
       {/* Hero content */}
@@ -117,7 +117,7 @@ export default function Hero() {
           className="font-display font-extrabold text-white leading-[1.06] tracking-tight mb-6"
           style={{ fontSize: "clamp(3rem, 7.5vw, 5.5rem)" }}
         >
-          Building Digital
+          Build
           <br />
           <span style={{
             background: "linear-gradient(135deg, #93c5fd 0%, #60a5fa 40%, #a5b4fc 80%, #c7d2fe 100%)",
@@ -125,10 +125,10 @@ export default function Hero() {
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
           }}>
-            Experiences
+            Launch
           </span>
           <br />
-          That Scale
+          Scale
         </motion.h1>
 
         {/* Subtext */}
@@ -140,7 +140,7 @@ export default function Hero() {
           className="text-blue-200/75 font-jakarta font-light leading-[1.85] mb-4 mx-auto max-w-[560px]"
           style={{ fontSize: "clamp(1rem, 2vw, 1.18rem)" }}
         >
-          We engineer modern digital solutions — from sleek web apps to enterprise-grade platforms — built to grow with your ambition and captivate your users from the first click.
+         We performance-driven web development and digital growth company helping startups, SMEs, and enterprises build scalable digital products that generate real revenue.
         </motion.p>
 
         {/* CTAs */}
@@ -152,17 +152,17 @@ export default function Hero() {
           className="flex flex-wrap items-center justify-center gap-4 mb-8"
         >
           <motion.a
-            href="#services"
+            href="#contact"
             className="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-blue-700 font-bold rounded-full text-sm font-display"
             style={{ boxShadow: "0 8px 40px rgba(0,0,0,0.3)" }}
             whileHover={{ scale: 1.05, boxShadow: "0 14px 50px rgba(0,0,0,0.38)" }}
             whileTap={{ scale: 0.97 }}
           >
-            Explore Services
+            Get Started
             <ArrowRight size={16} strokeWidth={2.5} />
           </motion.a>
           <motion.a
-            href="#about"
+            href="#client-love"
             className="inline-flex items-center gap-2.5 px-8 py-4 font-semibold rounded-full text-sm text-white glass-dark font-display"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
@@ -231,7 +231,6 @@ export default function Hero() {
             ]}}
             transition={{ duration: 10, ease: "easeInOut", repeat: Infinity, delay: 1 }}
           />
-          <path d="M0,95 C180,75 360,104 720,95 C1080,82 1280,106 1440,95 L1440,120 L0,120 Z" fill="#f7f9ff" />
         </svg>
       </div>
     </section>

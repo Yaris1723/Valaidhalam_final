@@ -3,13 +3,16 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
+import CareersModal from "./CareersModal";
 
 const navLinks = [
   { label: "Home", href: "#home" },
   { label: "Services", href: "#services" },
   { label: "About", href: "#about" },
   { label: "Process", href: "#process" },
+  { label: "Careers", href: "#careers" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -17,6 +20,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("Home");
+  const [careersOpen, setCareersOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,61 +68,57 @@ export default function Navbar() {
         >
           {/* Logo */}
           <Link href="#home">
-            <motion.span
-              className="font-display font-extrabold tracking-tight mr-3 select-none cursor-pointer"
-              style={{
-                fontSize: "clamp(1rem, 2.5vw, 1.25rem)",
-                background: "linear-gradient(135deg, #1d4ed8, #3b82f6, #06b6d4)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
+            <motion.div
+              className="relative"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
-              Valaidhalam
-            </motion.span>
+              <img
+                src="/uploads/VALAITHALAM_Logo-removebg-preview.png"
+                alt="Valaidhalam"
+                style={{ height: '150px', width: 'auto' }}
+              />
+            </motion.div>
           </Link>
 
           {/* Desktop Links */}
           <ul className="hidden md:flex items-center gap-0.5 mr-2">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <Link
-                  href={link.href}
-                  onClick={() => setActiveLink(link.label)}
-                  className="relative px-3 py-2 md:px-4 font-semibold text-slate-600 rounded-full transition-colors duration-200 hover:text-blue-600 block text-xs md:text-sm"
-                >
-                  {activeLink === link.label && (
-                    <motion.span
-                      layoutId="nav-pill"
-                      className="absolute inset-0 bg-blue-50 rounded-full"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{link.label}</span>
-                </Link>
+                {link.label === "Careers" ? (
+                  <button
+                    onClick={() => setCareersOpen(true)}
+                    className="relative px-3 py-2 md:px-4 font-semibold text-slate-600 rounded-full transition-colors duration-200 hover:text-blue-600 block text-xs md:text-sm"
+                  >
+                    {activeLink === link.label && (
+                      <motion.span
+                        layoutId="nav-pill"
+                        className="absolute inset-0 bg-blue-50 rounded-full"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{link.label}</span>
+                  </button>
+                ) : (
+                  <Link
+                    href={link.href}
+                    onClick={() => setActiveLink(link.label)}
+                    className="relative px-3 py-2 md:px-4 font-semibold text-slate-600 rounded-full transition-colors duration-200 hover:text-blue-600 block text-xs md:text-sm"
+                  >
+                    {activeLink === link.label && (
+                      <motion.span
+                        layoutId="nav-pill"
+                        className="absolute inset-0 bg-blue-50 rounded-full"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{link.label}</span>
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
 
-          {/* CTA */}
-          <motion.a
-            href="#contact"
-            className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 text-[13px] font-bold text-white rounded-full"
-            style={{
-              background: "linear-gradient(135deg, #1d4ed8, #2563eb)",
-              boxShadow: "0 4px 14px rgba(29,78,216,0.45)",
-            }}
-            whileHover={{ scale: 1.05, boxShadow: "0 6px 22px rgba(29,78,216,0.55)" }}
-            whileTap={{ scale: 0.96 }}
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-200 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-100" />
-            </span>
-            Get Started
-          </motion.a>
 
           {/* Mobile menu button */}
           <motion.button
@@ -134,14 +134,22 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            className="fixed top-[80px] left-4 right-4 z-40 glass rounded-3xl p-6 shadow-2xl"
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-          >
-            <ul className="space-y-1">
+          <>
+            <motion.div
+              className="fixed inset-0 bg-black/40 z-[59]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileOpen(false)}
+            />
+            <motion.div
+              className="fixed left-1/2 top-[90px] z-[60] -translate-x-1/2 glass rounded-3xl p-6 w-[calc(100%-2rem)] max-w-sm shadow-2xl"
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+            >
+              <ul className="space-y-1">
               {navLinks.map((link, i) => (
                 <motion.li
                   key={link.href}
@@ -149,13 +157,25 @@ export default function Navbar() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
                 >
-                  <Link
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="block px-4 py-3 text-slate-700 font-semibold rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.label === "Careers" ? (
+                    <button
+                      onClick={() => {
+                        setMobileOpen(false);
+                        setCareersOpen(true);
+                      }}
+                      className="block w-full text-left px-4 py-3 text-slate-700 font-semibold rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                    >
+                      {link.label}
+                    </button>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="block px-4 py-3 text-slate-700 font-semibold rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </motion.li>
               ))}
             </ul>
@@ -167,9 +187,13 @@ export default function Navbar() {
             >
               Get Started
             </motion.a>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
+
+      {/* Careers Modal */}
+      <CareersModal isOpen={careersOpen} onClose={() => setCareersOpen(false)} />
     </>
   );
 }

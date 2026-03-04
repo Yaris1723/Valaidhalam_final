@@ -67,18 +67,12 @@ export default function Navbar() {
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           {/* Logo */}
-          <Link href="#home">
-            <motion.div
-              className="relative"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
-            >
-              <img
-                src="/uploads/VALAITHALAM_Logo-removebg-preview.png"
-                alt="Valaidhalam"
-                style={{ height: '150px', width: 'auto' }}
-              />
-            </motion.div>
+          <Link href="#home" className="flex items-center h-10">
+            <img
+              src="/uploads/VALAITHALAM_Logo-removebg-preview.png"
+              alt="Valaidhalam"
+              style={{ height: '150px', width: 'auto' }}
+            />
           </Link>
 
           {/* Desktop Links */}

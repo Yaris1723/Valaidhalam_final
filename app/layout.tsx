@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   keywords: ["web development", "full-stack", "React", "Next.js", "Tamil Nadu", "tech services"],
 };
 
-export const viewport = {
+export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,

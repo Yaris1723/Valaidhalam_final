@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -17,7 +18,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-   verification: {
+  verification: {
     google: "GqCTbxgNZU2Wlmq1mKdMeovCSmNOJOXZ3k0Bywjkp2M",
   },
   title: "Valaidhalam | Affordable Web Design & Digital Services in Tamil Nadu",
@@ -114,6 +115,7 @@ export default function RootLayout({
       </head>
       <body className={`${bricolage.variable} ${jakarta.variable} font-jakarta antialiased`}>
         {children}
+        <GoogleAnalytics gaId="G-0VHXT6GKNN" /> {/* 👈 Added */}
       </body>
     </html>
   );

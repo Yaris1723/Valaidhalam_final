@@ -191,7 +191,7 @@ export default function CTA() {
       <motion.div className="absolute inset-0 pointer-events-none" style={{ y: bgY }}>
         <Image
           src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1400&h=900&fit=crop&auto=format"
-          alt=""
+          alt="Modern office workspace with computers"
           fill
           className="object-cover opacity-[0.06]"
         />

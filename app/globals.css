@@ -12,7 +12,9 @@
   --blue-ultra: #eff6ff;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: var(--font-jakarta), sans-serif;

@@ -185,11 +185,12 @@ Additional Message: ${formData.message}`,
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                          Phone Number
+                          Phone Number *
                         </label>
                         <input
                           type="tel"
                           name="phone"
+                          required
                           value={formData.phone}
                           onChange={handleChange}
                           className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
@@ -239,11 +240,12 @@ Additional Message: ${formData.message}`,
                       </div>
                       <div>
                         <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                          LinkedIn Profile
+                          LinkedIn Profile *
                         </label>
                         <input
                           type="url"
                           name="linkedin"
+                          required
                           value={formData.linkedin}
                           onChange={handleChange}
                           className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"

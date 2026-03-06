@@ -117,7 +117,7 @@ export default function Hero() {
           className="font-display font-extrabold text-white leading-[1.06] tracking-tight mb-6"
           style={{ fontSize: "clamp(3rem, 7.5vw, 5.5rem)" }}
         >
-          Build
+          Building Digital
           <br />
           <span style={{
             background: "linear-gradient(135deg, #93c5fd 0%, #60a5fa 40%, #a5b4fc 80%, #c7d2fe 100%)",
@@ -125,10 +125,10 @@ export default function Hero() {
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
           }}>
-            Launch
+            Experiences
           </span>
           <br />
-          Scale
+          That Scale
         </motion.h1>
 
         {/* Subtext */}

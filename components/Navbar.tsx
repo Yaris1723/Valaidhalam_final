@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import CareersModal from "./CareersModal";
 
@@ -22,12 +21,16 @@ export default function Navbar() {
   const [activeLink, setActiveLink] = useState("Home");
   const [careersOpen, setCareersOpen] = useState(false);
 
+  const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
     const handleScroll = () => {
-      // Update scrolled state
+      // If we're programmatically scrolling, ignore scroll-based active updates
+      if (isScrollingRef.current) return;
+
       setScrolled(window.scrollY > 60);
 
-      // Update active link based on scroll position
       const sections = navLinks.map(link => document.getElementById(link.href.substring(1)));
       const scrollPosition = window.scrollY + 150;
 
@@ -43,6 +46,16 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavClick = (label: string) => {
+    setActiveLink(label);
+    // Block scroll listener for 1 second while smooth scroll animates
+    isScrollingRef.current = true;
+    if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    scrollTimeoutRef.current = setTimeout(() => {
+      isScrollingRef.current = false;
+    }, 1000);
+  };
 
   return (
     <>
@@ -68,11 +81,20 @@ export default function Navbar() {
         >
           {/* Logo */}
           <Link href="#home" className="flex items-center h-10">
-            <img
-              src="/uploads/VALAITHALAM_Logo-removebg-preview.png"
-              alt="Valaidhalam"
-              style={{ height: '150px', width: 'auto' }}
-            />
+            <motion.span
+              className="font-display font-extrabold tracking-tight mr-3 select-none cursor-pointer"
+              style={{
+                fontSize: "clamp(1rem, 2.5vw, 1.25rem)",
+                background: "linear-gradient(135deg, #1d4ed8, #3b82f6, #06b6d4)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
+              Valaidhalam
+            </motion.span>
           </Link>
 
           {/* Desktop Links */}
@@ -81,13 +103,15 @@ export default function Navbar() {
               <li key={link.href}>
                 {link.label === "Careers" ? (
                   <button
-                    onClick={() => setCareersOpen(true)}
-                    className="relative px-3 py-2 md:px-4 font-semibold text-slate-600 rounded-full transition-colors duration-200 hover:text-blue-600 block text-xs md:text-sm"
+                    onClick={() => { handleNavClick(link.label); setCareersOpen(true); }}
+                    className="relative px-3 py-2 md:px-4 font-semibold rounded-full block text-xs md:text-sm"
+                    style={{ color: activeLink === link.label ? "#ffffff" : "#475569" }}
                   >
                     {activeLink === link.label && (
                       <motion.span
                         layoutId="nav-pill"
-                        className="absolute inset-0 bg-blue-50 rounded-full"
+                        className="absolute inset-0 rounded-full"
+                        style={{ background: "#2563eb" }}
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       />
                     )}
@@ -96,13 +120,15 @@ export default function Navbar() {
                 ) : (
                   <Link
                     href={link.href}
-                    onClick={() => setActiveLink(link.label)}
-                    className="relative px-3 py-2 md:px-4 font-semibold text-slate-600 rounded-full transition-colors duration-200 hover:text-blue-600 block text-xs md:text-sm"
+                    onClick={() => handleNavClick(link.label)}
+                    className="relative px-3 py-2 md:px-4 font-semibold rounded-full block text-xs md:text-sm"
+                    style={{ color: activeLink === link.label ? "#ffffff" : "#475569" }}
                   >
                     {activeLink === link.label && (
                       <motion.span
                         layoutId="nav-pill"
-                        className="absolute inset-0 bg-blue-50 rounded-full"
+                        className="absolute inset-0 rounded-full"
+                        style={{ background: "#2563eb" }}
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       />
                     )}
@@ -113,10 +139,9 @@ export default function Navbar() {
             ))}
           </ul>
 
-
           {/* Mobile menu button */}
           <motion.button
-            className="md:hidden p-2 rounded-full text-slate-600 hover:bg-blue-50"
+            className="md:hidden p-2 rounded-full text-slate-600"
             onClick={() => setMobileOpen(!mobileOpen)}
             whileTap={{ scale: 0.9 }}
           >
@@ -144,43 +169,52 @@ export default function Navbar() {
               transition={{ duration: 0.25, ease: "easeOut" }}
             >
               <ul className="space-y-1">
-              {navLinks.map((link, i) => (
-                <motion.li
-                  key={link.href}
-                  initial={{ opacity: 0, x: -15 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                >
-                  {link.label === "Careers" ? (
-                    <button
-                      onClick={() => {
-                        setMobileOpen(false);
-                        setCareersOpen(true);
-                      }}
-                      className="block w-full text-left px-4 py-3 text-slate-700 font-semibold rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                    >
-                      {link.label}
-                    </button>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="block px-4 py-3 text-slate-700 font-semibold rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  )}
-                </motion.li>
-              ))}
-            </ul>
-            <motion.a
-              href="#contact"
-              className="mt-4 w-full flex items-center justify-center py-3 bg-blue-600 text-white font-bold rounded-xl"
-              whileTap={{ scale: 0.97 }}
-              onClick={() => setMobileOpen(false)}
-            >
-              Get Started
-            </motion.a>
+                {navLinks.map((link, i) => (
+                  <motion.li
+                    key={link.href}
+                    initial={{ opacity: 0, x: -15 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    {link.label === "Careers" ? (
+                      <button
+                        onClick={() => {
+                          setMobileOpen(false);
+                          handleNavClick(link.label);
+                          setCareersOpen(true);
+                        }}
+                        className="block w-full text-left px-4 py-3 font-semibold rounded-xl transition-colors"
+                        style={{
+                          background: activeLink === link.label ? "#2563eb" : "transparent",
+                          color: activeLink === link.label ? "#ffffff" : "#374151",
+                        }}
+                      >
+                        {link.label}
+                      </button>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        onClick={() => { setMobileOpen(false); handleNavClick(link.label); }}
+                        className="block px-4 py-3 font-semibold rounded-xl transition-colors"
+                        style={{
+                          background: activeLink === link.label ? "#2563eb" : "transparent",
+                          color: activeLink === link.label ? "#ffffff" : "#374151",
+                        }}
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+                  </motion.li>
+                ))}
+              </ul>
+              <motion.a
+                href="#contact"
+                className="mt-4 w-full flex items-center justify-center py-3 bg-blue-600 text-white font-bold rounded-xl"
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setMobileOpen(false)}
+              >
+                Get Started
+              </motion.a>
             </motion.div>
           </>
         )}

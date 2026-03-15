@@ -8,7 +8,6 @@ import CareersModal from "./CareersModal";
 const socials = [
   { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=61587538686893", label: "Facebook", color: "#1877F2" },
   { Icon: Instagram, href: "https://www.instagram.com/valaidhalam.in/", label: "Instagram", color: "#E1306C" },
-  { Icon: Linkedin, href: "#", label: "LinkedIn", color: "#0077B5" },
 ];
 
 export default function Footer() {
@@ -69,7 +68,7 @@ export default function Footer() {
               {[
                 { Icon: Mail, text: "valaidhalam03@gmail.com" },
                 { Icon: Phone, text: "+91 94877 39484" },
-                { Icon: MapPin, text: "Tamil Nadu, India" },
+                { Icon: MapPin, text: "Salem, Tamil Nadu, India" },
               ].map(({ Icon, text }) => (
                 <div key={text} className="flex items-center gap-2.5 text-slate-500 text-[13px] font-jakarta">
                   <Icon size={13} className="text-blue-400 flex-shrink-0" />

@@ -155,7 +155,7 @@ export default function About() {
             </h2>
 
             <p className="text-slate-500 leading-[1.9] mb-4 text-[15px]">
-             Valaidhalam is a technology driven digital solutions studio based in Tamil Nadu, India. Our team partners with startups, growing businesses, and enterprises to design and develop powerful digital products that deliver real impact
+             Valaidhalam is a technology driven digital solutions studio based in Salem ,Tamil Nadu, India. Our team partners with startups, growing businesses, and enterprises to design and develop powerful digital products that deliver real impact
             </p>
             <p className="text-slate-500 leading-[1.9] mb-8 text-[15px]">
              

@@ -140,7 +140,7 @@ export default function Hero() {
           className="text-blue-200/75 font-jakarta font-light leading-[1.85] mb-4 mx-auto max-w-[560px]"
           style={{ fontSize: "clamp(1rem, 2vw, 1.18rem)" }}
         >
-         We performance-driven web development and digital growth company helping startups, SMEs, and enterprises build scalable digital products that generate real revenue.
+Performance-driven web development and digital growth company helping startups, SMEs, and enterprises build scalable digital products that generate real revenue
         </motion.p>
 
         {/* CTAs */}

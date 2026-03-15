@@ -7,10 +7,21 @@ export async function POST(request: NextRequest) {
     const { name, email, company, phone, service, budget, message } = body;
 
     // Validate required fields
-    if (!name || !email || !message) {
+    if (!name || !email || !phone || !message) {
       return NextResponse.json(
-        { error: "Name, email, and message are required" },
+        { error: "Name, email, phone, and message are required" },
         { status: 400 }
+      );
+    }
+
+    // Check SMTP credentials
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPassword = process.env.SMTP_PASSWORD;
+    
+    if (!smtpUser || !smtpPassword) {
+      return NextResponse.json(
+        { error: "Email service not configured. Please configure SMTP credentials in .env.local file." },
+        { status: 500 }
       );
     }
 
@@ -18,12 +29,23 @@ export async function POST(request: NextRequest) {
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST || "smtp.gmail.com",
       port: parseInt(process.env.SMTP_PORT || "587"),
-      secure: process.env.SMTP_SECURE === "true", // true for 465, false for other ports
+      secure: process.env.SMTP_SECURE === "true",
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
+        user: smtpUser,
+        pass: smtpPassword,
       },
     });
+
+    // Verify SMTP connection
+    try {
+      await transporter.verify();
+    } catch (verifyError) {
+      console.error("SMTP connection failed:", verifyError);
+      return NextResponse.json(
+        { error: "Email service connection failed. Please check SMTP credentials." },
+        { status: 500 }
+      );
+    }
 
     // Email content
     const emailHtml = `

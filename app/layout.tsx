@@ -24,7 +24,17 @@ export const metadata: Metadata = {
   title: "Valaidhalam | Affordable Web Design & Digital Services in Tamil Nadu",
   description:
     "Premium tech services studio in Tamil Nadu crafting scalable web applications, full-stack solutions, and digital growth strategies. Get expert web development, UI/UX design, and digital marketing services.",
-  keywords: ["web development", "full-stack", "React", "Next.js", "Tamil Nadu", "tech services", "web design", "digital marketing", "UI/UX design"],
+keywords: [
+  "Valaidhalam",
+  "Valaidhalam web development",
+  "Valaidhalam Tamil Nadu",
+  "web development company Tamil Nadu",
+  "digital growth company Salem",
+  "affordable web design Tamil Nadu",
+  "React Next.js development India",
+  "startup web development",
+  "full-stack development Tamil Nadu",
+],
   authors: [{ name: "Valaidhalam" }],
   creator: "Valaidhalam",
   publisher: "Valaidhalam",

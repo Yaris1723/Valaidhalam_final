@@ -138,6 +138,8 @@ export default function CTA() {
     const e: Partial<FormData> = {};
     if (!form.name.trim()) e.name = "Name is required";
     if (!form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) e.email = "Valid email required";
+    if (!form.phone.trim()) e.phone = "Phone number is required";
+    else if (!/^\d+$/.test(form.phone.trim())) e.phone = "Only numbers are allowed";
     if (!form.message.trim()) e.message = "Message is required";
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -301,6 +303,7 @@ export default function CTA() {
                 exit={{ opacity: 0 }}
                 className="relative z-10 space-y-5"
                 noValidate
+                autoComplete="off"
               >
                     <div className="mb-6">
                       <h3 className="font-display font-bold text-white text-xl">Send us a message</h3>
@@ -348,22 +351,31 @@ export default function CTA() {
 
                     {/* Row 2: Company + Phone */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <InputField
-                        label="Company / Brand"
-                        icon={Briefcase}
-                        type="text"
-                        placeholder="Your company name"
-                        value={form.company}
-                        onChange={set("company")}
-                      />
-                      <InputField
-                        label="Phone Number"
-                        icon={Phone}
-                        type="tel"
-                        placeholder="+91 98765 43210"
-                        value={form.phone}
-                        onChange={set("phone")}
-                      />
+                      <div>
+                        <InputField
+                          label="Company / Brand"
+                          icon={Briefcase}
+                          type="text"
+                          placeholder="Your company name"
+                          value={form.company}
+                          onChange={set("company")}
+                        />
+                      </div>
+                      <div>
+                        <InputField
+                          label="Phone Number *"
+                          icon={Phone}
+                          type="tel"
+                          pattern="[0-9]*"
+                          inputMode="numeric"
+                          placeholder="9876543210"
+                          value={form.phone}
+                          onChange={set("phone")}
+                        />
+                        {errors.phone && (
+                          <p className="text-red-400 text-xs mt-1.5 font-jakarta">{errors.phone}</p>
+                        )}
+                      </div>
                     </div>
 
                     {/* Row 3: Service + Budget */}
@@ -468,7 +480,7 @@ export default function CTA() {
               {[
                 { Icon: Mail, label: "Email", value: "valaidhalam03@gmail.com", href: "mailto:valaidhalam03@gmail.com" },
                 { Icon: Phone, label: "Phone", value: "+91 94877 39484", href: "tel:+919487739484" },
-                { Icon: MapPin, label: "Location", value: "Tamil Nadu, India", href: "#" },
+                { Icon: MapPin, label: "Location", value: "Salem ,Tamil Nadu, India", href: "#" },
               ].map(({ Icon, label, value, href }, i) => (
                 <motion.a
                   key={label}
@@ -529,7 +541,7 @@ export default function CTA() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0c1f4a]/80 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-5">
                 <div className="text-white font-display font-bold text-sm">Our Studio</div>
-                <div className="text-blue-300/70 text-xs font-jakarta">Tamil Nadu, India</div>
+                <div className="text-blue-300/70 text-xs font-jakarta">Salem,Tamil Nadu, India</div>
               </div>
             </motion.div>
           </motion.div>

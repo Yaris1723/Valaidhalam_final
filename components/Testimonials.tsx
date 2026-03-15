@@ -55,7 +55,7 @@ export default function Testimonials() {
             className="font-display font-extrabold text-slate-900 leading-tight tracking-tight mb-4"
             style={{ fontSize: "clamp(2.1rem, 4.5vw, 3.2rem)" }}
           >
-            Client{" "}
+            Client's{" "}
             <span style={{
               background: "linear-gradient(135deg, #1d4ed8, #06b6d4)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text"

@@ -189,15 +189,13 @@ export default function Services() {
   const [selectedService, setSelectedService] = useState("");
   const hasOpenedRef = useRef(false);
 
-  // Monitor Services section to auto-open modal when scrolled into view (only once)
+  // Auto-open modal when services section comes into view (only once per page reload)
   useEffect(() => {
     // Fix: Guard against SSR — localStorage and document are not available on the server
     if (typeof window === "undefined") return;
 
-    const hasModalBeenShown = localStorage.getItem("contactModalShown");
-
-    // If already shown or already opened in this session, don't set up observer
-    if (hasModalBeenShown || hasOpenedRef.current) return;
+    // Only open once per page load
+    if (hasOpenedRef.current) return;
 
     const servicesSection = document.getElementById("services");
     if (!servicesSection) return;
@@ -209,8 +207,6 @@ export default function Services() {
           if (entry.isIntersecting && !hasOpenedRef.current) {
             hasOpenedRef.current = true;
             setIsModalOpen(true);
-            // Mark as shown so it won't open again (persist across sessions)
-            localStorage.setItem("contactModalShown", "true");
             // Disconnect observer after triggering
             observer.disconnect();
           }

@@ -145,6 +145,8 @@ export default function ContactModal({ isOpen, onClose, preSelectedService }: Co
     const e: Partial<FormData> = {};
     if (!form.name.trim()) e.name = "Name is required";
     if (!form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) e.email = "Valid email required";
+    if (!form.phone.trim()) e.phone = "Phone number is required";
+    else if (!/^\d+$/.test(form.phone.trim())) e.phone = "Only numbers are allowed";
     if (!form.message.trim()) e.message = "Message is required";
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -166,6 +168,10 @@ export default function ContactModal({ isOpen, onClose, preSelectedService }: Co
 
       if (response.ok) {
         setStatus("success");
+        // Close modal after successful submission
+        setTimeout(() => {
+          handleClose();
+        }, 1500);
       } else {
         const data = await response.json();
         console.error("Submission failed:", data.error);
@@ -288,6 +294,7 @@ export default function ContactModal({ isOpen, onClose, preSelectedService }: Co
                     exit={{ opacity: 0 }}
                     className="relative z-10 space-y-5"
                     noValidate
+                    autoComplete="off"
                   >
                     {status === "error" && (
                       <motion.div
@@ -331,22 +338,31 @@ export default function ContactModal({ isOpen, onClose, preSelectedService }: Co
 
                     {/* Row 2: Company + Phone */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <InputField
-                        label="Company / Brand"
-                        icon={Briefcase}
-                        type="text"
-                        placeholder="Your company name"
-                        value={form.company}
-                        onChange={set("company")}
-                      />
-                      <InputField
-                        label="Phone Number"
-                        icon={Phone}
-                        type="tel"
-                        placeholder="+91 98765 43210"
-                        value={form.phone}
-                        onChange={set("phone")}
-                      />
+                      <div>
+                        <InputField
+                          label="Company / Brand"
+                          icon={Briefcase}
+                          type="text"
+                          placeholder="Your company name"
+                          value={form.company}
+                          onChange={set("company")}
+                        />
+                      </div>
+                      <div>
+                        <InputField
+                          label="Phone Number *"
+                          icon={Phone}
+                          type="tel"
+                          pattern="[0-9]*"
+                          inputMode="numeric"
+                          placeholder="9876543210"
+                          value={form.phone}
+                          onChange={set("phone")}
+                        />
+                        {errors.phone && (
+                          <p className="text-red-400 text-xs mt-1.5 font-jakarta">{errors.phone}</p>
+                        )}
+                      </div>
                     </div>
 
                     {/* Row 3: Service + Budget */}

@@ -3,12 +3,13 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import CareersModal from "./CareersModal";
 
 const navLinks = [
   { label: "Home", href: "#home" },
-  { label: "Services", href: "#services" },
+  { label: "Services", href: "/services" },
   { label: "About", href: "#about" },
   { label: "Process", href: "#process" },
   { label: "Careers", href: "#careers" },
@@ -16,6 +17,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("Home");
@@ -24,6 +26,23 @@ export default function Navbar() {
   const isScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // If not on the home page, prefix hash links with "/" so they navigate to /#section
+  const getHref = (href: string) => {
+    if (href.startsWith("#") && pathname !== "/") {
+      return `/${href}`;
+    }
+    return href;
+  };
+
+  // Highlight correct nav item based on current page route
+  useEffect(() => {
+    if (pathname === "/services") {
+      setActiveLink("Services");
+    } else if (pathname === "/") {
+      setActiveLink("Home");
+    }
+  }, [pathname]);
+
   useEffect(() => {
     const handleScroll = () => {
       // If we're programmatically scrolling, ignore scroll-based active updates
@@ -31,7 +50,12 @@ export default function Navbar() {
 
       setScrolled(window.scrollY > 60);
 
-      const sections = navLinks.map(link => document.getElementById(link.href.substring(1)));
+      // Only do scroll-based active detection on the home page
+      if (pathname !== "/") return;
+
+      const sections = navLinks.map(link =>
+        link.href.startsWith("#") ? document.getElementById(link.href.substring(1)) : null
+      );
       const scrollPosition = window.scrollY + 150;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -45,7 +69,7 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
   const handleNavClick = (label: string) => {
     setActiveLink(label);
@@ -79,8 +103,8 @@ export default function Navbar() {
           }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          {/* Logo */}
-          <Link href="#home" className="flex items-center h-10">
+          {/* Logo — always goes to home page */}
+          <Link href={getHref("#home")} className="flex items-center h-10" onClick={() => handleNavClick("Home")}>
             <motion.span
               className="font-display font-extrabold tracking-tight mr-3 select-none cursor-pointer"
               style={{
@@ -119,7 +143,7 @@ export default function Navbar() {
                   </button>
                 ) : (
                   <Link
-                    href={link.href}
+                    href={getHref(link.href)}
                     onClick={() => handleNavClick(link.label)}
                     className="relative px-3 py-2 md:px-4 font-semibold rounded-full block text-xs md:text-sm"
                     style={{ color: activeLink === link.label ? "#ffffff" : "#475569" }}
@@ -193,7 +217,7 @@ export default function Navbar() {
                       </button>
                     ) : (
                       <Link
-                        href={link.href}
+                        href={getHref(link.href)}
                         onClick={() => { setMobileOpen(false); handleNavClick(link.label); }}
                         className="block px-4 py-3 font-semibold rounded-xl transition-colors"
                         style={{
@@ -208,7 +232,7 @@ export default function Navbar() {
                 ))}
               </ul>
               <motion.a
-                href="#contact"
+                href={getHref("#contact")}
                 className="mt-4 w-full flex items-center justify-center py-3 bg-blue-600 text-white font-bold rounded-xl"
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setMobileOpen(false)}

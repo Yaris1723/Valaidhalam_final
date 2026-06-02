@@ -10,10 +10,10 @@ import CareersModal from "./CareersModal";
 const navLinks = [
   { label: "Home", href: "#home" },
   { label: "Services", href: "/services" },
-  { label: "About", href: "#about" },
+  { label: "About", href: "/about" },
   { label: "Process", href: "#process" },
   { label: "Careers", href: "#careers" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -38,6 +38,10 @@ export default function Navbar() {
   useEffect(() => {
     if (pathname === "/services") {
       setActiveLink("Services");
+    } else if (pathname === "/about") {
+      setActiveLink("About");
+    } else if (pathname === "/contact") {
+      setActiveLink("Contact");
     } else if (pathname === "/") {
       setActiveLink("Home");
     }
@@ -53,15 +57,16 @@ export default function Navbar() {
       // Only do scroll-based active detection on the home page
       if (pathname !== "/") return;
 
-      const sections = navLinks.map(link =>
-        link.href.startsWith("#") ? document.getElementById(link.href.substring(1)) : null
+      const homeSections = navLinks.filter(l => l.href.startsWith("#"));
+      const sections = homeSections.map(link =>
+        document.getElementById(link.href.substring(1))
       );
       const scrollPosition = window.scrollY + 150;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
         if (section && section.offsetTop <= scrollPosition) {
-          setActiveLink(navLinks[i].label);
+          setActiveLink(homeSections[i].label);
           break;
         }
       }
@@ -231,14 +236,13 @@ export default function Navbar() {
                   </motion.li>
                 ))}
               </ul>
-              <motion.a
-                href={getHref("#contact")}
+              <Link
+                href="/contact"
                 className="mt-4 w-full flex items-center justify-center py-3 bg-blue-600 text-white font-bold rounded-xl"
-                whileTap={{ scale: 0.97 }}
-                onClick={() => setMobileOpen(false)}
+                onClick={() => { setMobileOpen(false); handleNavClick("Contact"); }}
               >
                 Get Started
-              </motion.a>
+              </Link>
             </motion.div>
           </>
         )}
